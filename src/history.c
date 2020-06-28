@@ -1,4 +1,4 @@
-#include <history.h>
+#include "history.h"
 
 List *init_history()
 {
@@ -33,8 +33,8 @@ char *get_history(List *list, int id)
       return currItem->str;
     currItem = currItem->next;
   }
-  printf("id not found");
-  return;
+  printf("id not found\n");
+  return 0;
 }
 
 void print_history(List *list)

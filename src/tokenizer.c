@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <tokenizer.h>
+#include "tokenizer.h"
 
 int space_char(char c)
 {
@@ -11,7 +11,7 @@ int space_char(char c)
 
 int non_space_char(char c)
 {
-  if(c != ' ' && c != '\t')
+  if(c != ' ' && c != '\t' && c != '\n')
     return 1;
   return 0;
 }
@@ -71,7 +71,7 @@ char **tokenize(char *str)
   int i;
   for(i = 0; i < nwords; i++){
     b = word_start(str);
-    e = word_terminator(str);
+    e = word_terminator(b);
     if(e != 0)
       len = e - b;
     else{
@@ -90,7 +90,7 @@ char **tokenize(char *str)
   return tokens;
 }
 
-char print_tokens(char **tokens)
+void print_tokens(char **tokens)
 {
   while(*tokens){
     puts(*tokens);
