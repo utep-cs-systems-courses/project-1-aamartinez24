@@ -39,13 +39,13 @@ char *word_terminator(char *word)
 int count_words(char *str)
 {
   int words = 0;
-  int state = 0;
+  int state = 0;        /* Determines if the pointer is inside a word(1) or outside(0) */
   while(*str){
-    if(state == 0 && non_space_char(*str)){
+    if(state == 0 && non_space_char(*str)){ /* Points to a new word */
       state = 1;
       ++words;
     }
-    else if(state == 1 && space_char(*str))
+    else if(state == 1 && space_char(*str)) /* Exits word */
       state = 0;
     str++;
   }
@@ -57,7 +57,7 @@ char *copy_str(char *inStr, short len)
   char *p = malloc(sizeof(char) * len + 1);
   int i;
   for(i = 0; i < len; i++)
-    p[i] = inStr[i];
+    p[i] = inStr[i];        /* Copies each character to the new allocated space */
   p[i] = '\0';
   return p;
 }
@@ -70,20 +70,20 @@ char **tokenize(char *str)
   short len;
   int i;
   for(i = 0; i < nwords; i++){
-    b = word_start(str);
-    e = word_terminator(b);
+    b = word_start(str);    /* First character of a word */
+    e = word_terminator(b); /* Space after the end character of a word */
     if(e != 0)
-      len = e - b;
-    else{
+      len = e - b;          /* Length of a word */
+    else{                   /* e points to the end of the whole string (NULL) */
       int j = 0;
-      while(*str){
+      while(*str){          /* Get length by going thru the word with an integer */
 	j++;
 	str++;
       }
       len = j;
     }
     str = b;
-    str+=len+1;
+    str+=len+1;             /* Automatically point to the beginning of the next word */
     tokens[i] = copy_str(b, len);
   }
   tokens[i] = '\0';
@@ -93,7 +93,7 @@ char **tokenize(char *str)
 void print_tokens(char **tokens)
 {
   while(*tokens){
-    puts(*tokens);
+    puts(*tokens);          /* Prints the whole string of each pointer */
     tokens++;
   }
   return;
@@ -102,7 +102,7 @@ void print_tokens(char **tokens)
 void free_tokens(char **tokens)
 {
   while(*tokens){
-    free(*tokens);
+    free(*tokens);          /* Deallocates the all the memory that was allocated before */
     tokens++;
   }
   return;
