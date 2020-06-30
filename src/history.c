@@ -52,6 +52,7 @@ void free_history(List *list)
 {
   Item *currItem = list->root;
   while(currItem != 0){        /* Deallocates memory of each Node */
+    free(currItem->str);
     free(currItem);
     currItem = currItem->next;
   }
